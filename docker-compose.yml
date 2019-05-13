@@ -1,0 +1,13 @@
+version: '3'
+
+services:
+  container:
+    images:
+
+  volumes:
+    container-data:
+
+  networks:
+    mynetwork:
+
+  secrets:
