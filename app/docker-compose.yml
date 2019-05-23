@@ -1,0 +1,44 @@
+version: "3"
+
+services:
+  # 
+  wordpress:
+    image: wordpress:latest
+    networks: 
+      - default
+      - intern
+    container_name: "wordpress"
+    volumes: 
+      - wordpress-data:/var/www/html
+    environment:
+      WORDPRESS_DB_HOST: mariadb:3306
+      WORDPRESS_DB_USER: wordpress
+      WORDPRESS_DB_PASSWORD: wordpress
+      VIRTUAL_HOST: wordpress.cscld.de
+      LETSENCRYPT_HOST: wordpress.cscld.de
+      LETSENCRYPT_EMAIL: test@cscld.de
+    depends_on:
+      - mariadb 
+
+  mariadb:
+    image: mariadb
+    container_name: "mariadb"
+    restart: always
+    volumes: 
+      - db-data:/var/lib/mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: netlab
+      MYSQL_DATABASE: wordpress
+      MYSQL_USER: wordpress
+      MYSQL_PASSWORD: wordpress
+      TZ: Europe/Berline
+      #standart Port 3306
+
+volumes:
+  db-data:
+  wordpress-data:
+networks:
+  intern:
+    external: 
+      name: proxy_intern
+

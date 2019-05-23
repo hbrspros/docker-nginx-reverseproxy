@@ -3,32 +3,37 @@ version: '3'
 services:
 
   proxy:
-    container_name: nginx-proxy
+    container_name: proxy
     image: jwilder/nginx-proxy
     restart: unless-stopped
     ports:
       - 80:80
       - 443:443
     networks:
+      - intern
       - default
-      - proxy-tier
     volumes:
       - /var/run/docker.sock:/tmp/docker.sock:ro
       - /opt/docker/nginx-proxy/conf.d:/etc/nginx/conf.d
       - /opt/docker/nginx-proxy/html:/usr/share/nginx/html      
       - /opt/docker/nginx-proxy/vhost.d:/etc/nginx/vhost.d
       - /opt/docker/nginx-proxy/certs:/etc/nginx/certs
-      
+    environment:
+      ENABLE_IPV6: 'true'
+
   cert-gen:
-    container_name: letsencrypt-nginx-proxy-companion    
+    container_name: cert-gen   
     image: jrcs/letsencrypt-nginx-proxy-companion
-    restart: unless-stopped
+    restart: unless-stopped 
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock:ro
-    volumes_from:
-      - proxy
+      - /opt/docker/nginx-proxy/conf.d:/etc/nginx/conf.d
+      - /opt/docker/nginx-proxy/html:/usr/share/nginx/html      
+      - /opt/docker/nginx-proxy/vhost.d:/etc/nginx/vhost.d
+      - /opt/docker/nginx-proxy/certs:/etc/nginx/certs
+    environment:
+      - NGINX_PROXY_CONTAINER='proxy'
+      - NGINX_DOCKER_GEN_CONTAINER='cert-gen'
 
 networks:
-  proxy-tier:
-    external:
-      name: nginx-proxy
+  intern:
