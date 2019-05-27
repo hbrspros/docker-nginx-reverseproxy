@@ -1,0 +1,19 @@
+version: "3"
+
+services:
+  # 
+  whoami:
+    image: jennerwein/whoami:latest
+    networks:
+      - intern
+    container_name: "whoami"
+    environment:
+      VIRTUAL_HOST: whoami.cscld.de
+      LETSENCRYPT_HOST: whoami.cscld.de
+      LETSENCRYPT_EMAIL: test@cscld.de
+
+networks:
+  intern:
+    external: 
+      name: proxy_intern
+
