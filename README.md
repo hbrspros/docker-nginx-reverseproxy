@@ -28,6 +28,7 @@ Eg for Wordpress:
 # Architecture 
 ## The old way (LAMP)
 <IMAGE HERE>
+  
 ### Setup
 - Database as Service on host system
 - Webserver as Service on host system
