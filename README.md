@@ -1,4 +1,4 @@
-# Nginx Reverse Proxy
+# HOWTO: Nginx Reverse Proxy 
 
 ## Purpose
 Setup a multi-domain Webservice Infrastructure with automated vhost configuration deployment and TLS-Cert generation in a dockerized environment.
