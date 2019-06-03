@@ -31,8 +31,9 @@ Eg for Wordpress:
 - Database as Service on host system
 - Webserver as Service on host system
 - Webserver manages TLS Certs
+
 ### Networking
-- No virtual interfaces
+- No virtual interfaces/all on one system with a single eth0 interface
 
 ## The new Way (Docker - Microservices)
 ### Setup
@@ -40,10 +41,11 @@ Eg for Wordpress:
 - Webserver as container
 - reverseproxy as container
 - Webserver manages TLS Certs
-### Networking
-- Webserver conntected to database
-- Webserver conntected to reverseproxy
 
+### Networking
+- Network: Webserver connected to database
+- Internal Network: Webserver connected to reverseproxy
+- External Network: reverseproxy connected to external interface eth0 
 
 ## How to get started
 
