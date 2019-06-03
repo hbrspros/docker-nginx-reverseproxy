@@ -38,6 +38,7 @@ Eg for Wordpress:
 
 ## The new Way (Docker - Microservices)
 <IMAGE HERE>
+  
 ### Setup
 - Database as container
 - Webserver as container
