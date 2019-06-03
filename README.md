@@ -3,7 +3,7 @@
 ## Purpose
 Setup a mutlidomain Webservice Infrastructure with automated vhost configuration deployment and TLS-Cert generation in a dockerized environment.
 
-## What the 'customer' want
+## What the 'customer' wants
 - 2 Webapps with 2 seperated Domains on a Single host
   - Wordpress (wordpress.example.com)
   - Whoami (whoami.example.com)
@@ -25,6 +25,24 @@ Eg for Wordpress:
 - ~~manual vhost configuration~~ __vhost as container environment__
 - __let the infrastructure __create certificates and configure TLS __for you__
 
+# Architecture 
+## The old way (LAMP)
+### Setup
+- Database as Service on host system
+- Webserver as Service on host system
+- Webserver manages TLS Certs
+### Networking
+- No virtual interfaces
+
+## The new Way (Docker - Microservices)
+### Setup
+- Database as container
+- Webserver as container
+- reverseproxy as container
+- Webserver manages TLS Certs
+### Networking
+- Webserver conntected to database
+- Webserver conntected to reverseproxy
 
 
 ## How to get started
