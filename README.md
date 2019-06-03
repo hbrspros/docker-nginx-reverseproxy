@@ -27,6 +27,7 @@ Eg for Wordpress:
 
 # Architecture 
 ## The old way (LAMP)
+<IMAGE HERE>
 ### Setup
 - Database as Service on host system
 - Webserver as Service on host system
@@ -36,6 +37,7 @@ Eg for Wordpress:
 - No virtual interfaces/all on one system with a single eth0 interface
 
 ## The new Way (Docker - Microservices)
+<IMAGE HERE>
 ### Setup
 - Database as container
 - Webserver as container
@@ -50,12 +52,24 @@ Eg for Wordpress:
 ## How to get started
 
 Clone Repo
-`git clone https://github.com/hbrspros/docker-nginx-reverseproxy.git`
+
+    git clone https://github.com/hbrspros/docker-nginx-reverseproxy.git
 
 Setup Proxy
-`cd nginx`
-`docker-compose -d up`
+
+    cd nginx
+    docker-compose -d up
 
 Setup app
-`cd ../app`
-`docker-compose -d up`
+
+    cd ../app
+    docker-compose -d up
+
+## How to deploy new webapps (with TLS certs)
+In this section we will describe all necessary options you have to set when starting a new container:
+
+    ...
+    environment:
+      VIRTUAL_HOST: wordpress.example.com
+      LETSENCRYPT_HOST: wordpress.example.com
+      LETSENCRYPT_EMAIL: test@example.com
