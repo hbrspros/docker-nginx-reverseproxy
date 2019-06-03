@@ -1,7 +1,7 @@
 # HOWTO: Nginx Reverse Proxy 
 
 ## Purpose
-Setup a multi-domain Webservice Infrastructure with automated vhost configuration deployment and TLS-Cert generation in a dockerized environment.
+An __Explanation__ for setting up a multi-domain Webservice Infrastructure with automated vhost configuration deployment and TLS-Cert generation in a dockerized environment.
 
 ## What the 'customer' wants
 - 2 Webapps with 2 seperated Domains on a Single host
