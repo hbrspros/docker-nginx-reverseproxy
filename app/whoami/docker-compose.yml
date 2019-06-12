@@ -5,7 +5,7 @@ services:
   whoami:
     image: jennerwein/whoami:latest
     networks:
-      - intern
+      - nginx-proxy
     container_name: "whoami"
     environment:
       VIRTUAL_HOST: whoami.cscld.de
@@ -13,7 +13,7 @@ services:
       LETSENCRYPT_EMAIL: test@cscld.de
 
 networks:
-  intern:
+  nginx-proxy:
     external: 
-      name: proxy_intern
+      name: nginx-proxy
 
