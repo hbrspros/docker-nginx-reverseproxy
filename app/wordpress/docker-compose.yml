@@ -6,7 +6,7 @@ services:
     image: wordpress:latest
     networks: 
       - default
-      - nginx-proxy
+      - proxy_internal
     container_name: "wordpress"
     volumes: 
       - wordpress-data:/var/www/html
@@ -37,8 +37,9 @@ services:
 volumes:
   db-data:
   wordpress-data:
+
 networks:
-  nginx-proxy:
+  proxy_internal:
     external: 
-      name: nginx-proxy
+      name: proxy_internal
 

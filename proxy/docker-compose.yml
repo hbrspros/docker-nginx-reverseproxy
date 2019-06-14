@@ -5,6 +5,8 @@ services:
   nginx-proxy:
     image: jwilder/nginx-proxy
     container_name: nginx-proxy
+    networks:
+      - internal
     ports:
       - "80:80"
       - "443:443"
@@ -20,6 +22,8 @@ services:
   letsencrypt:
     image: jrcs/letsencrypt-nginx-proxy-companion
     container_name: nginx-proxy-le
+    networks:
+      - internal
     depends_on:
       - nginx-proxy
     volumes:
@@ -40,6 +44,4 @@ volumes:
   certs:
 
 networks:
-  default:
-    external:
-      name: nginx-proxy
+  internal:
