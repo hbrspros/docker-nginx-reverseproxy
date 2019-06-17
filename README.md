@@ -1,12 +1,12 @@
 # HOWTO: Nginx Reverse Proxy 
 
 ## Purpose
-An __Explanation__ for setting up a multi-domain Webservice Infrastructure with automated vhost configuration deployment and TLS-Cert generation in a dockerized environment.
+An __Explanation for an University-Project__ for setting up a multi-domain Webservice Infrastructure with automated vhost configuration deployment and TLS-Cert generation in a dockerized environment.
 
 ## What the 'customer' wants
 - 2 Webapps with 2 seperated Domains on a Single host
-  - Wordpress (wordpress.example.com)
-  - Whoami (whoami.example.com)
+  - Wordpress from https://hub.docker.com/_/wordpress  (wordpress.example.com)
+  - Whoami from https://hub.docker.com/r/jennerwein/whoami (whoami.example.com)
 
 ## The old way (LAMP)
 Eg for Wordpress:
@@ -27,28 +27,29 @@ Eg for Wordpress:
 
 # Architecture 
 ## The old way (LAMP)
-<IMAGE HERE>
+Please seee: https://en.wikipedia.org/wiki/LAMP_(software_bundle)#/media/File:LAMPP_Architecture.png
   
 ### Setup
 - Database as Service on host system
 - Webserver as Service on host system
-- Webserver manages TLS Certs
+- Webserver manages TLS Certs (can be signed by Letsencrypt)
 
 ### Networking
 - No virtual interfaces/all on one system with a single eth0 interface
 
 ## The new Way (Docker - Microservices)
-<IMAGE HERE>
+Please see: https://raw.githubusercontent.com/JrCs/docker-letsencrypt-nginx-proxy-companion/master/schema.png
   
 ### Setup
 - Database as container
 - Webserver as container
 - reverseproxy as container
-- Webserver manages TLS Certs
+- container manages TLS Certs
 
 ### Networking
-- Network: Webserver connected to database
-- Internal Network: Webserver connected to reverseproxy
+- Network: Wordpress connected to database
+- Internal Network: Wordpress connected to reverseproxy
+- Internal Network: Whoami connected to reverseproxy
 - External Network: reverseproxy connected to external interface eth0 
 
 ## How to get started
@@ -62,10 +63,15 @@ Setup Proxy
     cd nginx
     docker-compose -d up
 
-Setup app
+Setup app: whoami
 
-    cd ../app
+    cd ../app/whoami
     docker-compose -d up
+    
+Setup app: wordpress
+
+    cd ../wordpress
+    docker-compose -d up    
 
 ## How to deploy new webapps (with TLS certs)
 In this section we will describe all necessary options you have to set when starting a new container:
@@ -75,3 +81,5 @@ In this section we will describe all necessary options you have to set when star
       VIRTUAL_HOST: wordpress.example.com
       LETSENCRYPT_HOST: wordpress.example.com
       LETSENCRYPT_EMAIL: test@example.com
+
+Please see our presentation for detailed information about Dockerfiles, docker-compose, networking etc.
