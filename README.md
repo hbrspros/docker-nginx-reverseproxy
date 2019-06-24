@@ -4,7 +4,7 @@
 An __Explanation for an University-Project__ for setting up a multi-domain Webservice Infrastructure with automated vhost configuration deployment and TLS-Cert generation in a dockerized environment.
 
 ## Problem
-If you want to serve multiple domains (domains or even subdomains) on a system (host) with only one IP-Address, you need to introduce some kind of reverse proxy. Because you only have one single :443 Port on your system to listen at, there have to be a central instance which than routes the traffic to your endpoints.
+If you want to serve multiple domains (domains or even subdomains) on a system (host) with only one IP-Address, you need to introduce some kind of reverse proxy. Because you only have one single :443 Port on your system to listen at, there have to be a central instance which than routes the traffic to your endpoints (Container).
 This is the reason why nginx or webserver like apache2 lets you configure _vhosts_. Regarding to the Domain the Client will request, the server gets different documents or endpoints. The configuration of this _vhost_-Files was always not the best job to do, so its time to automate this configuration with existing (docker) Architectures.
 When talking about automation it would we very useful to automate the Letsencrypt thing too. Take care of generating new certs every 90 days or generate new once when you deploy a new app, there would be no better time for automate this step too, because docker knows which systems are currently running and have a vhosts running, why we dont start a container (which has this information) and let him create the vhost- and letsencrypt files.
 This is the part where we want to start our documentation/explanation.
@@ -131,7 +131,7 @@ The nginx and letsencrypt container both had the docker-gen implemented in the b
 1. Nginx generates the new config for the vhost with the container IP
 1. Letsencrypt gets the certs (with http challenge) and configure vhosts to get the HTTPS Server ready.
 
-This ends up in this modification like this:
+This ends up in a modification like this:
 
     root@ubuntu:~/docker-nginx-reverseproxy/proxy# diff /tmp/default.conf /var/lib/docker/volumes/proxy_conf/_data/default.conf
     61a62,95
@@ -180,5 +180,8 @@ In this section we will describe all necessary options you have to set (in the d
       VIRTUAL_HOST: wordpress.example.com
       LETSENCRYPT_HOST: wordpress.example.com
       LETSENCRYPT_EMAIL: test@example.com
+
+__Explanation:__ ```VIRTUAL_HOST``` and ```LETSENCRYPT_HOST``` is your domain-name (eg. example.com)  and ```LETSENCRYPT_EMAIL``` is your E-Mail address where you get information if your certificates expiry date is near.
+These are the only settings to must take care of if you want to deploy a new secure webapp.
 
 Please see our presentation for detailed information about Dockerfiles, docker-compose, networking, SSL-Labs result etc.
